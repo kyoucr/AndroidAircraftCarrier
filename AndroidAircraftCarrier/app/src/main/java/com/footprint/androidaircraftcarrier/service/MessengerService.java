@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 import android.widget.Toast;
 
 /**
@@ -24,6 +25,11 @@ public class MessengerService extends Service {
             switch (msg.what) {
                 case MSG_SAY_HELLO:
                     Toast.makeText(getApplicationContext(), "hello!", Toast.LENGTH_SHORT).show();
+                    try {
+                        msg.replyTo.send(Message.obtain(null, 1234, 0, 0));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     super.handleMessage(msg);
@@ -42,7 +48,6 @@ public class MessengerService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        Toast.makeText(getApplicationContext(), "binding", Toast.LENGTH_SHORT).show();
         return mMessenger.getBinder();
     }
 }

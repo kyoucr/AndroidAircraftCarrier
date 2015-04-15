@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
@@ -19,6 +20,7 @@ import com.footprint.androidaircraftcarrier.R;
 
 /**
  * Created by liquanmin on 15/4/15.
+ * Service学习三大点：1)Bind/Start Service;  2)Messenger;  3)AIDL
  */
 public class ServiceActivity extends Activity{
     protected Button bindButton, msgButton;
@@ -29,6 +31,8 @@ public class ServiceActivity extends Activity{
 
     /** Messenger for communicating with the service. */
     Messenger msgMessenger = null;
+    Messenger clientMessenger = null;
+    Handler clientHandler = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class ServiceActivity extends Activity{
                     return;
                 // Create and send a message to the service, using a supported 'what' value
                 Message msg = Message.obtain(null, MessengerService.MSG_SAY_HELLO, 0, 0);
+                msg.replyTo = clientMessenger;
                 try {
                     msgMessenger.send(msg);
                 } catch (RemoteException e) {
@@ -61,7 +66,16 @@ public class ServiceActivity extends Activity{
                 }
             }
         });
+
         serviceText = (TextView)findViewById(R.id.serviceText);
+
+        clientHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Toast.makeText(ServiceActivity.this, "Msg_ID:" + msg.what, Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     @Override
@@ -121,6 +135,7 @@ public class ServiceActivity extends Activity{
             // service using a Messenger, so here we get a client-side
             // representation of that from the raw IBinder object.
             msgMessenger = new Messenger(service);
+            clientMessenger = new Messenger(clientHandler);
             msgBound = true;
         }
 
