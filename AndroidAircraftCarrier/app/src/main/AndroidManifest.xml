@@ -64,6 +64,7 @@
         <!-- android:enabled 这个属性用于指示该服务是否能够被实例化。如果设置为true，则能够被实例化，否则不能被实例化。默认值是true。
              【实验】设置为false之后就不能绑定成功   -->
         <service android:enabled="true" android:name=".service.LocalService" />
+        <service android:enabled="true" android:name=".service.MessengerService" />
     </application>
 
 </manifest>

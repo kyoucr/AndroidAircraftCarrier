@@ -40,6 +40,12 @@ public class LocalService extends Service {
     }
 
     @Override
+    public void onCreate() {
+        Log.e("FP", "Service Create");
+        super.onCreate();
+    }
+
+    @Override
     public void onDestroy() {
         //所有的client unbind之后，即被销毁
         Log.e("FP", "Service Destroy");
