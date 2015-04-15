@@ -13,7 +13,7 @@ public class LabActivity extends FPListActivity {
     @Override
     public List<ActivityItem> getDataList() {
         List<ActivityItem> labList = new ArrayList<ActivityItem>();
-        ActivityItem listItem = new ActivityItem("ListView的Header测试", "fp://lab");
+        ActivityItem listItem = new ActivityItem("ListView的Header测试", "lab://listhead");
         labList.add(listItem);
         return labList;
     }

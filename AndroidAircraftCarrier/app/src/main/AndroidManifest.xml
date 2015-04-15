@@ -26,8 +26,8 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
 
                 <data
-                    android:host="lab"
-                    android:scheme="fp"/>
+                    android:host="main"
+                    android:scheme="lab"/>
             </intent-filter>
         </activity>
         <activity
@@ -44,6 +44,26 @@
                     android:scheme="lab"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".service.ServiceActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="main"
+                    android:scheme="service"/>
+            </intent-filter>
+        </activity>
+
+
+        <!-- Service -->
+        <!-- android:enabled 这个属性用于指示该服务是否能够被实例化。如果设置为true，则能够被实例化，否则不能被实例化。默认值是true。
+             【实验】设置为false之后就不能绑定成功   -->
+        <service android:enabled="true" android:name=".service.LocalService" />
     </application>
 
 </manifest>
