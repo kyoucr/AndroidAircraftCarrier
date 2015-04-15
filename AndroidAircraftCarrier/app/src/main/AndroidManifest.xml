@@ -30,6 +30,20 @@
                     android:scheme="fp"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".lab.ListViewHeader"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="listhead"
+                    android:scheme="lab"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

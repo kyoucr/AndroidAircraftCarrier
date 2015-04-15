@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by liquanmin on 15/4/15.
  */
 public abstract class FPListActivity extends Activity{
-    private ListView listView;
+    protected ListView listView;
     private List<ActivityItem> dataList;
 
     @Override
@@ -35,8 +36,12 @@ public abstract class FPListActivity extends Activity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = dataList.get(position).getDataUrl();
+                if(TextUtils.isEmpty(url))
+                    return;
+
                 Intent intent = new Intent();
-                intent.setData(Uri.parse(dataList.get(position).getDataUrl()));
+                intent.setData(Uri.parse(url));
                 startActivity(intent);
             }
         });
