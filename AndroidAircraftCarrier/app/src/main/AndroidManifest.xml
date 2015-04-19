@@ -1,70 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.footprint.androidaircraftcarrier">
+    package="com.footprint.androidaircraftcarrier" >
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/AppTheme">
-
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".main.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Lab -->
         <activity
             android:name=".lab.LabActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="main"
-                    android:scheme="lab"/>
+                    android:scheme="lab" />
             </intent-filter>
         </activity>
         <activity
             android:name=".lab.ListViewHeader"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="listhead"
-                    android:scheme="lab"/>
+                    android:scheme="lab" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".service.ServiceActivity"
-            android:label="@string/app_name">
+            android:name=".lab.LifeCycle"
+            android:label="@string/title_activity_life_cycle" >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="main"
-                    android:scheme="service"/>
+                    android:host="lifecycle"
+                    android:scheme="lab" />
             </intent-filter>
         </activity>
 
+        <!-- Service -->
+        <activity
+            android:name=".service.ServiceActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="main"
+                    android:scheme="service" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".service.ServiceNextActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="mainnext"
+                    android:scheme="service" />
+            </intent-filter>
+        </activity>
 
         <!-- Service -->
-        <!-- android:enabled 这个属性用于指示该服务是否能够被实例化。如果设置为true，则能够被实例化，否则不能被实例化。默认值是true。
-             【实验】设置为false之后就不能绑定成功   -->
-        <service android:enabled="true" android:name=".service.LocalService" />
-        <service android:enabled="true" android:name=".service.MessengerService" />
+        <!--
+             android:enabled 这个属性用于指示该服务是否能够被实例化。如果设置为true，则能够被实例化，否则不能被实例化。默认值是true。
+             【实验】设置为false之后就不能绑定成功
+        -->
+        <service
+            android:name=".service.LocalService"
+            android:enabled="true" />
+        <service
+            android:name=".service.MessengerService"
+            android:enabled="true" />
     </application>
 
 </manifest>

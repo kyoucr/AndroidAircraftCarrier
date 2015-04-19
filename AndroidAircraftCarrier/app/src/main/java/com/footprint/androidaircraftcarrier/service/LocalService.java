@@ -30,7 +30,38 @@ public class LocalService extends Service {
     }
 
     @Override
+    public void onRebind(Intent intent) {
+        Log.e("FP", "Service onRebind");
+        super.onRebind(intent);
+    }
+
+    /**
+     * 所有client都unbind之后才会调用
+     * */
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.e("FP", "Service onUnbind");
+        return true;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e("FP", "Service onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    /**
+     * 第一次调用的时候会执行代码，之后只要Service没有Destroy，不管Client
+     * 如何bind，都不会再执行该方法。文档：
+     * 【D】Multiple clients can connect to the service at once.
+     * However, the system calls your service's onBind() method
+     * to retrieve the IBinder only when the first client binds.
+     * The system then delivers the same IBinder to any
+     * additional clients that bind, without calling onBind() again.
+     * */
+    @Override
     public IBinder onBind(Intent intent) {
+        Log.e("FP", "Service onBind");
         return mBinder;
     }
 
