@@ -54,7 +54,7 @@ public class ServiceActivity extends Activity{
 
         serviceText = (TextView)findViewById(R.id.serviceText);
 
-//        startService(new Intent(ServiceActivity.this, LocalService.class));
+        startService(new Intent(ServiceActivity.this, LocalService.class));
 
         /**
          * Bind操作是异步的，并不直接返回，所以需要Connection对象，这其中是两个回调

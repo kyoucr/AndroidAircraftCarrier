@@ -10,7 +10,9 @@ import java.util.Random;
 
 /**
  * Created by liquanmin on 15/4/15.
- * 注意：服务必须在AM中注册，否则不能调用
+ * 注意：
+ * 1）服务必须在AM中注册，否则不能调用
+ * 2）Service中与bind相关的方法都是一个入口方法：即针对第一个和最后一个Service执行的；
  */
 public class LocalService extends Service {
     // Binder given to clients
@@ -29,6 +31,12 @@ public class LocalService extends Service {
         }
     }
 
+    /**
+     * 调用条件：
+     * 1)onUnbind调用返回true；
+     * 2)注意onUnbind调用的条件，此时必须还要保证Service没有被杀死，即需要使用startService
+     * 启动Service并且没有stop自己；
+     * */
     @Override
     public void onRebind(Intent intent) {
         Log.e("FP", "Service onRebind");
