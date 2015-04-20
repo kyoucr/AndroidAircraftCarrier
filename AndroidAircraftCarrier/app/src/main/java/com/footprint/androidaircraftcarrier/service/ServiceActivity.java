@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.footprint.androidaircraftcarrier.IMyAidlInterface;
+import com.footprint.androidaircraftcarrier.ITaskCallback;
 import com.footprint.androidaircraftcarrier.R;
 
 /**
@@ -77,6 +78,7 @@ public class ServiceActivity extends Activity{
             // this gets an instance of the IRemoteInterface, which we can use to call on the service
             iMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
             try {
+                iMyAidlInterface.registerCallback(mCallback);
                 Toast.makeText(ServiceActivity.this, iMyAidlInterface.getMsg(), Toast.LENGTH_SHORT).show();
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -87,6 +89,19 @@ public class ServiceActivity extends Activity{
         public void onServiceDisconnected(ComponentName className) {
             Log.e("FP", "Service has unexpectedly disconnected");
             iMyAidlInterface = null;
+        }
+    };
+
+    private ITaskCallback mCallback = new ITaskCallback.Stub(){
+
+        @Override
+        public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
+
+        }
+
+        @Override
+        public void actionCallback(int actionId) throws RemoteException {
+            Log.e("FP", "I am callbacked!");
         }
     };
 
