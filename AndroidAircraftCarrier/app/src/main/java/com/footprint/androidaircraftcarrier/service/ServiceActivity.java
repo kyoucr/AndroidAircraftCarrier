@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.footprint.androidaircraftcarrier.IMyAidlInterface;
 import com.footprint.androidaircraftcarrier.R;
 
 /**
@@ -63,9 +65,30 @@ public class ServiceActivity extends Activity{
          * */
 
         // Bind to LocalService
-        Intent intent = new Intent(this, LocalService.class);
-        bindService(intent, bindConnection, Context.BIND_AUTO_CREATE);
+        Intent intent = new Intent(this, RemoteAIDLService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
+
+    private IMyAidlInterface iMyAidlInterface;
+    private ServiceConnection mConnection = new ServiceConnection() {
+        // Called when the connection with the service is established
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // Following the example above for an AIDL interface,
+            // this gets an instance of the IRemoteInterface, which we can use to call on the service
+            iMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
+            try {
+                Toast.makeText(ServiceActivity.this, iMyAidlInterface.getMsg(), Toast.LENGTH_SHORT).show();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Called when the connection with the service disconnects unexpectedly
+        public void onServiceDisconnected(ComponentName className) {
+            Log.e("FP", "Service has unexpectedly disconnected");
+            iMyAidlInterface = null;
+        }
+    };
 
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection bindConnection = new ServiceConnection() {
