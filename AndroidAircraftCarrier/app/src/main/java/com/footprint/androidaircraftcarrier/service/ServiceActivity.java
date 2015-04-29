@@ -5,6 +5,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -18,23 +20,27 @@ import com.footprint.androidaircraftcarrier.IMyAidlInterface;
 import com.footprint.androidaircraftcarrier.ITaskCallback;
 import com.footprint.androidaircraftcarrier.R;
 
+import java.io.IOException;
+
 /**
  * Created by liquanmin on 15/4/15.
  * Service学习三大点：1)Bind/Start Service;  2)Messenger;  3)AIDL
  */
-public class ServiceActivity extends Activity{
+public class ServiceActivity extends Activity {
     protected Button bindButton, msgButton;
     protected TextView serviceText;
 
     LocalService bindService;
     boolean bindBound = false;
 
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
 
-        bindButton = (Button)findViewById(R.id.bindButton);
+        bindButton = (Button) findViewById(R.id.bindButton);
         bindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +51,7 @@ public class ServiceActivity extends Activity{
             }
         });
 
-        msgButton = (Button)findViewById(R.id.messagerButton);
+        msgButton = (Button) findViewById(R.id.messagerButton);
         msgButton.setText("第二页面");
         msgButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +61,7 @@ public class ServiceActivity extends Activity{
             }
         });
 
-        serviceText = (TextView)findViewById(R.id.serviceText);
+        serviceText = (TextView) findViewById(R.id.serviceText);
 
         startService(new Intent(ServiceActivity.this, LocalService.class));
 
@@ -68,6 +74,31 @@ public class ServiceActivity extends Activity{
         // Bind to LocalService
         Intent intent = new Intent(this, RemoteAIDLService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
+
+        /**
+         * 测试播放音乐
+         * 【验证】切到下一个页面以及页面退到后台，音乐都会继续播放。界面杀死之后，不论是否在哦你Destroy中停止
+         * 播放文件，音乐都会停止。
+         * 建议使用Service播放音乐，Context居于后台，从而音乐的播放停止由程序控制
+         * */
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource("http://yinyueshiting.baidu.com/data2/music/134370203/14945107241200128.mp3?xcode=48b564f00c231cb037b30130eee42a5a9747f83dd337b2e9");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        // 通过异步的方式装载媒体资源
+        mediaPlayer.prepareAsync();
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                // 装载完毕 开始播放流媒体
+                mediaPlayer.start();
+                Toast.makeText(ServiceActivity.this, "开始播放", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private IMyAidlInterface iMyAidlInterface;
@@ -92,7 +123,7 @@ public class ServiceActivity extends Activity{
         }
     };
 
-    private ITaskCallback mCallback = new ITaskCallback.Stub(){
+    private ITaskCallback mCallback = new ITaskCallback.Stub() {
 
         @Override
         public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
@@ -105,7 +136,9 @@ public class ServiceActivity extends Activity{
         }
     };
 
-    /** Defines callbacks for service binding, passed to bindService() */
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
     private ServiceConnection bindConnection = new ServiceConnection() {
 
         /**
@@ -142,6 +175,12 @@ public class ServiceActivity extends Activity{
         if (bindBound) {
             unbindService(bindConnection);
             bindBound = false;
+        }
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 }
