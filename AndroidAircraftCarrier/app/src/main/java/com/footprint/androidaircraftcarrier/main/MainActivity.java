@@ -17,6 +17,9 @@ public class MainActivity extends FPListActivity {
         listItem = new ActivityItem("Service", "service://main");
         dataList.add(listItem);
 
+        listItem = new ActivityItem("Fresco", "source://fresco");
+        dataList.add(listItem);
+
         return dataList;
     }
 
