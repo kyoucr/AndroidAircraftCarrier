@@ -78,6 +78,34 @@
             </intent-filter>
         </activity>
 
+        <!-- Anim -->
+        <activity
+            android:name=".animation.ScreenSlidePagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="viewpager"
+                    android:scheme="anim" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".animation.LayoutAnimationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="layout"
+                    android:scheme="anim" />
+            </intent-filter>
+        </activity>
+
         <!-- Service -->
         <activity
             android:name=".service.ServiceActivity"

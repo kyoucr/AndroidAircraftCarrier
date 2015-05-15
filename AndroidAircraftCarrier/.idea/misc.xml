@@ -15,6 +15,9 @@
     <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../../Software/dp_format.xml" />
     <option name="selectedJavaProfile" value="dp_format_space" />
   </component>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>

@@ -20,6 +20,12 @@ public class MainActivity extends FPListActivity {
         listItem = new ActivityItem("Fresco", "source://fresco");
         dataList.add(listItem);
 
+        listItem = new ActivityItem("ViewPagerAnimation", "anim://viewpager");
+        dataList.add(listItem);
+
+        listItem = new ActivityItem("LayoutAnimation", "anim://layout");
+        dataList.add(listItem);
+
         return dataList;
     }
 
