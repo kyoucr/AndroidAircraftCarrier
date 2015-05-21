@@ -21,6 +21,9 @@ public class LabActivity extends FPListActivity {
         listItem = new ActivityItem("Activity跳转时生命周期测试", "lab://lifecycle");
         labList.add(listItem);
 
+        listItem = new ActivityItem("内存泄露", "lab://memoryleak");
+        labList.add(listItem);
+
         return labList;
     }
 

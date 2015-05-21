@@ -77,6 +77,19 @@
                     android:scheme="lab" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".lab.MemoryLeakActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="memoryleak"
+                    android:scheme="lab" />
+            </intent-filter>
+        </activity>
 
         <!-- Anim -->
         <activity
