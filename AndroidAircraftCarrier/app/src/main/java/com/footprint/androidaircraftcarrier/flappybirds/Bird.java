@@ -18,6 +18,7 @@ public class Bird {
 
     private int posX, posY;//鸟的坐标
     private int birdWidth, birdHeight;//鸟的体积
+    private int gameHeight, gameWidth;
 
     /**
      * 鸟的宽度 30dp
@@ -28,51 +29,44 @@ public class Bird {
 
     private RectF birdRect = new RectF();
 
-    public Bird(Context context, int gameWidth, int gameHeight, Bitmap birdBmp){
-        posX = (gameWidth - birdBmp.getWidth())/3;
-        posY = (int)(gameHeight * (1 - RADIO_POS_HEIGHT));
+    private final int UP_FLY_DIS;
+    private final int DOWN_DIS = 15;
+    private int upFlyTimes;
+
+    public Bird(Context context, int gameWidth, int gameHeight, Bitmap birdBmp) {
+        this.gameHeight = gameHeight;
+        this.gameWidth = gameWidth;
+
+        posX = gameWidth / 3 - birdBmp.getWidth();
+        posY = (int) (gameHeight * (1 - RADIO_POS_HEIGHT));
 
         // 计算鸟的宽度和高度
         birdWidth = PixelUtils.dp2px(context, BIRD_SIZE);
         birdHeight = (int) (birdWidth * 1.0f / birdBmp.getWidth() * birdBmp.getHeight());
 
         this.birdBmp = birdBmp;
+
+        UP_FLY_DIS = gameHeight / 8;
     }
 
-    public void drawBirdSelf(Canvas canvas){
+    public void drawBirdSelf(Canvas canvas) {
         birdRect.set(posX, posY, posX + birdWidth, posY + birdHeight);
         canvas.drawBitmap(birdBmp, null, birdRect, null);
+
+        posY += DOWN_DIS;
     }
 
-    public int getPosX() {
-        return posX;
+    public void upFly() {
+        posY -= UP_FLY_DIS;
+        if (posY < 0)
+            posY = 0;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    public boolean ifBirdStillFlying(){
+        return posY + birdHeight < gameHeight;
     }
 
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    public int getBirdWidth() {
-        return birdWidth;
-    }
-
-    public void setBirdWidth(int birdWidth) {
-        this.birdWidth = birdWidth;
-    }
-
-    public int getBirdHeight() {
-        return birdHeight;
-    }
-
-    public void setBirdHeight(int birdHeight) {
-        this.birdHeight = birdHeight;
+    public RectF getBirdPos(){
+        return birdRect;
     }
 }

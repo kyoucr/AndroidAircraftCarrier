@@ -52,4 +52,8 @@ public class Pipe {
 
         posY -= pipeV;
     }
+
+    public boolean ifPipeCrash(Bird bird) {
+        return RectF.intersects(upRect, bird.getBirdPos()) || RectF.intersects(downRect, bird.getBirdPos());
+    }
 }

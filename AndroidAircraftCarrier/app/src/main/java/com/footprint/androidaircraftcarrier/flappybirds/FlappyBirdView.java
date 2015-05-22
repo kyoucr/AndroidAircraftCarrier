@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 import com.footprint.androidaircraftcarrier.R;
 
@@ -60,5 +62,22 @@ public class FlappyBirdView extends GameSurfaceView {
         floor.drawFloorSelf(canvas);
         pipe.drawPipeSelf(canvas);
         bird.drawBirdSelf(canvas);
+
+        calculateIfGameOver();
+    }
+
+    public void calculateIfGameOver(){
+        if(!bird.ifBirdStillFlying() || pipe.ifPipeCrash(bird)) {
+            isRunning = false;
+            Toast.makeText(getContext(), "Game Over!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_UP){
+            bird.upFly();
+        }
+        return true;
     }
 }

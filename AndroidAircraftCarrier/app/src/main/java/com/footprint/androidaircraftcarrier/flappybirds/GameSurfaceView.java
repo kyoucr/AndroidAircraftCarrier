@@ -19,7 +19,7 @@ public abstract class GameSurfaceView extends SurfaceView implements SurfaceHold
 
     private Thread thread;
 
-    private boolean isRunning;
+    protected boolean isRunning;
 
     public GameSurfaceView(Context context) {
         super(context);
