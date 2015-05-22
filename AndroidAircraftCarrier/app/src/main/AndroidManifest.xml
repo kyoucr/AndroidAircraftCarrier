@@ -149,6 +149,22 @@
             </intent-filter>
         </activity>
 
+
+        <!-- Flappy -->
+        <activity
+            android:name=".flappybirds.FlappyBirdActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="flappybirds"
+                    android:scheme="game" />
+            </intent-filter>
+        </activity>
+
         <!-- Service -->
         <!--
              android:enabled 这个属性用于指示该服务是否能够被实例化。如果设置为true，则能够被实例化，否则不能被实例化。默认值是true。

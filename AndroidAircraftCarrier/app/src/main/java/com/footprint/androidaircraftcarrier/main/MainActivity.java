@@ -26,6 +26,9 @@ public class MainActivity extends FPListActivity {
         listItem = new ActivityItem("LayoutAnimation", "anim://layout");
         dataList.add(listItem);
 
+        listItem = new ActivityItem("Flappy Birds", "game://flappybirds");
+        dataList.add(listItem);
+
         return dataList;
     }
 
