@@ -34,6 +34,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.textView.setText(list.get(i).desc);
         viewHolder.imageView.setImageURI(Uri.parse(list.get(i).imgUrl));
+        viewHolder.imageView.setMinimumHeight(500 + (int)(500 * Math.random()));
     }
 
     @Override
