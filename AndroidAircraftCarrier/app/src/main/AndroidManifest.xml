@@ -90,6 +90,19 @@
                     android:scheme="lab" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".lab.JsonActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="json"
+                    android:scheme="lab" />
+            </intent-filter>
+        </activity>
 
         <!-- Anim -->
         <activity
@@ -162,6 +175,21 @@
                 <data
                     android:host="flappybirds"
                     android:scheme="game" />
+            </intent-filter>
+        </activity>
+
+        <!-- DataBinding -->
+        <activity
+            android:name=".databinding.DataBindingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="databinding"
+                    android:scheme="test" />
             </intent-filter>
         </activity>
 

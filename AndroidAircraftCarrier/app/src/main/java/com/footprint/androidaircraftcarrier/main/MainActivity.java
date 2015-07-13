@@ -29,6 +29,7 @@ public class MainActivity extends FPListActivity {
         listItem = new ActivityItem("Flappy Birds", "game://flappybirds");
         dataList.add(listItem);
 
+        listItem = new ActivityItem("DataBinding", "test://databinding");
         return dataList;
     }
 

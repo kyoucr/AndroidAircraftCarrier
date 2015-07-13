@@ -30,8 +30,7 @@ public class Bird {
     private RectF birdRect = new RectF();
 
     private final int UP_FLY_DIS;
-    private final int DOWN_DIS = 15;
-    private int upFlyTimes;
+    private final int DOWN_DIS = 5;
 
     public Bird(Context context, int gameWidth, int gameHeight, Bitmap birdBmp) {
         this.gameHeight = gameHeight;

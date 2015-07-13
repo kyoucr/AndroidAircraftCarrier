@@ -9,7 +9,7 @@ import android.graphics.RectF;
  */
 public class Pipe {
     private int posY;//Y坐标
-    private int pipeV = 12;
+    private int pipeV = 5;
 
     private int verDis;//垂直距离
     private int maxHeight, minHeight;//上面管道的高度

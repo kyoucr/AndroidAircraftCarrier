@@ -76,8 +76,8 @@ public abstract class GameSurfaceView extends SurfaceView implements SurfaceHold
 
             long end = System.currentTimeMillis();
             try{
-                if(end - start < 50){
-                    Thread.sleep(50 - (end - start));
+                if(end - start < 20){
+                    Thread.sleep(20 - (end - start));
                 }
             }catch (InterruptedException e){
                 Log.e("GameFlabbyBird", e.toString());

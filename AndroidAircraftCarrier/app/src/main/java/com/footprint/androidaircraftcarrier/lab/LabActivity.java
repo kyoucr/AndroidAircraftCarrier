@@ -24,6 +24,9 @@ public class LabActivity extends FPListActivity {
         listItem = new ActivityItem("内存泄露", "lab://memoryleak");
         labList.add(listItem);
 
+        listItem = new ActivityItem("JSON", "lab://json");
+        labList.add(listItem);
+
         return labList;
     }
 

@@ -10,7 +10,7 @@ import android.graphics.RectF;
  */
 public class Floor {
     private int floorX, floorY;//位置
-    private int floorV = 8;//移动速度
+    private int floorV = 3;//移动速度
     private Bitmap floorBitmap;
     private int horWidthDiff = 0;
 
