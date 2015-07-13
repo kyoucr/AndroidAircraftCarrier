@@ -208,6 +208,34 @@
             android:name=".service.RemoteAIDLService"
             android:enabled="true"
             android:process=":remoterpc" />
+
+        <!-- UI -->
+        <activity
+            android:name=".ui.UIActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="ui"
+                    android:scheme="study" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.RVActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="rv"
+                    android:scheme="study" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
