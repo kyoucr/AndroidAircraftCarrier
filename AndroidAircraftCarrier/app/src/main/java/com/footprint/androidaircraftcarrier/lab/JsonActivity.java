@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.footprint.androidaircraftcarrier.R;
 
-import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -24,10 +24,12 @@ public class JsonActivity extends Activity {
         textView = (TextView) findViewById(R.id.textView);
 
         JSONObject jsonObject = new JSONObject();
-        int arr[] = new int[]{1, 2, 3};
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(1000).put(1200).put(1400);
+        try {
+            jsonObject.put("refresh", true);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        textView.setText(jsonArray.toString());
+        textView.setText(jsonObject.toString());
     }
 }

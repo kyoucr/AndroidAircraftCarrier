@@ -27,6 +27,9 @@ public class LabActivity extends FPListActivity {
         listItem = new ActivityItem("JSON", "lab://json");
         labList.add(listItem);
 
+        listItem = new ActivityItem("Fragment生命周期", "lab://flc");
+        labList.add(listItem);
+
         return labList;
     }
 
