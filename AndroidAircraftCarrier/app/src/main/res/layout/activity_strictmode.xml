@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/buttonA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="主线程调用耗时函数——非StrictMode"/>
+
+    <Button
+        android:id="@+id/buttonB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="主线程调用耗时函数——StrictMode"/>
+
+    <Button
+        android:id="@+id/buttonC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="非主线程调用耗时函数——StrictMode"/>
+</LinearLayout>
