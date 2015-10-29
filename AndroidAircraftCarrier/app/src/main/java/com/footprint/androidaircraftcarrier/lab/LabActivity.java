@@ -30,6 +30,12 @@ public class LabActivity extends FPListActivity {
         listItem = new ActivityItem("Fragment生命周期", "lab://flc");
         labList.add(listItem);
 
+        listItem = new ActivityItem("Handler", "lab://handler");
+        labList.add(listItem);
+
+        listItem = new ActivityItem("StrictMode", "lab://strictmode");
+        labList.add(listItem);
+
         return labList;
     }
 
