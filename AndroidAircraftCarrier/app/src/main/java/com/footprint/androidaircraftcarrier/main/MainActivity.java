@@ -20,6 +20,9 @@ public class MainActivity extends FPListActivity {
         listItem = new ActivityItem("Fresco", "source://fresco");
         dataList.add(listItem);
 
+        listItem = new ActivityItem("EventBus", "source://eventbus");
+        dataList.add(listItem);
+
         listItem = new ActivityItem("ViewPagerAnimation", "anim://viewpager");
         dataList.add(listItem);
 
