@@ -16,6 +16,11 @@ public class FragmentLCActivity extends FragmentActivity {
         setContentView(R.layout.activity_fragmentlc);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, LCFragment.newInstance("I am new!")).commit();
+                .add(R.id.container, LCFragment.newInstance("I am new!")).addToBackStack(null).commit();
+
+        LCFragment testFragment = LCFragment.newInstance("test");
+        getSupportFragmentManager().beginTransaction().attach(testFragment).commit();
+        getSupportFragmentManager().beginTransaction().detach(testFragment).commit();
+        getSupportFragmentManager().beginTransaction().attach(testFragment).commit();
     }
 }
