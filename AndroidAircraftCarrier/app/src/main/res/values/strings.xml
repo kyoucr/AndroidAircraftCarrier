@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">贝壳儿</string>
+    <string name="app_name">贝壳</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="user_name">大脚印</string>
-    <string name="user_label">【细水长流，静水流深】</string>
+    <string name="user_name">静水流深</string>
+    <string name="user_label">——BigFoorprint</string>
 
     <!-- menu -->
     <string name="shell_home">贝壳家</string>

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitleTextColor(getColor(R.color.dark_gray));
         mToolbar.setBackgroundColor(getColor(R.color.yellow));
-        mToolbar.setLogo(R.drawable.shell);
         setSupportActionBar(mToolbar);
 
         //设置抽屉DrawerLayout
