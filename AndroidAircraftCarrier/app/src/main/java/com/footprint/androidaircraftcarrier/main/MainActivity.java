@@ -14,9 +14,12 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.footprint.androidaircraftcarrier.R;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
+    private View avatorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,21 @@ public class MainActivity extends AppCompatActivity {
                 menuItem.setChecked(true);//点击了把它设为选中状态
                 mDrawerLayout.closeDrawers();//关闭抽屉
                 return true;
+            }
+        });
+
+        avatorView = mNavigationView.findViewById(R.id.imageview_avatar);
+        avatorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimatorSet set = new AnimatorSet();
+                set.playTogether(
+                        ObjectAnimator.ofFloat(avatorView, "rotation", 0, 1080),
+                        ObjectAnimator.ofFloat(avatorView, "scaleX", 1, 1.2f, 1),
+                        ObjectAnimator.ofFloat(avatorView, "scaleY", 1, 1.2f, 1),
+                        ObjectAnimator.ofFloat(avatorView, "alpha", 1, 0.25f, 1)
+                );
+                set.setDuration(3 * 1000).start();
             }
         });
     }

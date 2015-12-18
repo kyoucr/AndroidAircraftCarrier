@@ -36,6 +36,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
         app:itemTextColor="@color/textcolor_drawer_item"
+        app:itemIconTint="@color/textcolor_drawer_item"
         app:menu="@menu/menu_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
