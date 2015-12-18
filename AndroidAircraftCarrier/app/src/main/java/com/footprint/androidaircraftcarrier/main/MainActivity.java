@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //设置ToolBar
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitleTextColor(getColor(R.color.dark_gray));
-        mToolbar.setBackgroundColor(getColor(R.color.yellow));
         setSupportActionBar(mToolbar);
 
         //设置抽屉DrawerLayout
@@ -36,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();//初始化状态
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mToolbar.setNavigationIcon(R.drawable.ic_action);//放在这里设置才有效果
 
         //设置导航栏NavigationView的点击事件
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.navigation);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setStatusBarColor(getColor(R.color.theme_red));
             window.setNavigationBarColor(Color.TRANSPARENT);
         }
     }

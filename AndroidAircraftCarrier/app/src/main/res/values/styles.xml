@@ -4,6 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="colorPrimary">@color/theme_red</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:navigationIcon">@drawable/ic_action</item>
     </style>
-
 </resources>
