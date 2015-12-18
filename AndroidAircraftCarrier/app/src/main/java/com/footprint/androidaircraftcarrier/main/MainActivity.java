@@ -3,7 +3,9 @@ package com.footprint.androidaircraftcarrier.main;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,17 +16,28 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.footprint.androidaircraftcarrier.R;
+import com.footprint.androidaircraftcarrier.main.fragments.CompassFragment;
+import com.footprint.androidaircraftcarrier.main.fragments.GitBookFragment;
+import com.footprint.androidaircraftcarrier.main.fragments.PlanningFragment;
+import com.footprint.androidaircraftcarrier.main.fragments.ShellFragment;
+import com.footprint.androidaircraftcarrier.main.fragments.SourceCodeFragment;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.WeakHashMap;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private DrawerLayout mDrawerLayout;
-    private View avatorView;
+    private Shimmer shimmer;
+
+    private WeakHashMap<String, Fragment> fragmentHashMap = new WeakHashMap<>();
+    private Handler mainHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBar();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //设置ToolBar
@@ -43,42 +56,77 @@ public class MainActivity extends AppCompatActivity {
         //设置导航栏NavigationView的点击事件
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.navigation);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            String className = "";
+            Fragment fragmentToDisplay = null;
+
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);//点击了把它设为选中状态
+                mDrawerLayout.closeDrawers();//关闭抽屉
+
                 switch (menuItem.getItemId()) {
                     case R.id.item_home:
                         mToolbar.setTitle(R.string.shell_home);
+                        className = ShellFragment.class.getCanonicalName();
+                        if (fragmentHashMap.get(className) == null) {
+                            fragmentToDisplay = ShellFragment.instantiate(MainActivity.this, className);
+                            fragmentHashMap.put(className, fragmentToDisplay);
+                        }
                         break;
                     case R.id.item_explore:
                         mToolbar.setTitle(R.string.shell_explore);
+                        className = CompassFragment.class.getCanonicalName();
+                        if (fragmentHashMap.get(className) == null) {
+                            fragmentToDisplay = CompassFragment.instantiate(MainActivity.this, className);
+                            fragmentHashMap.put(className, fragmentToDisplay);
+                        }
                         break;
                     case R.id.item_code:
                         mToolbar.setTitle(R.string.shell_code);
+                        className = SourceCodeFragment.class.getCanonicalName();
+                        if (fragmentHashMap.get(className) == null) {
+                            fragmentToDisplay = SourceCodeFragment.instantiate(MainActivity.this, className);
+                            fragmentHashMap.put(className, fragmentToDisplay);
+                        }
                         break;
                     case R.id.item_plan:
                         mToolbar.setTitle(R.string.shell_plan);
+                        className = PlanningFragment.class.getCanonicalName();
+                        if (fragmentHashMap.get(className) == null) {
+                            fragmentToDisplay = PlanningFragment.instantiate(MainActivity.this, className);
+                            fragmentHashMap.put(className, fragmentToDisplay);
+                        }
+                        break;
+                    case R.id.item_book:
+                        mToolbar.setTitle(R.string.shell_plan);
+                        className = GitBookFragment.class.getCanonicalName();
+                        if (fragmentHashMap.get(className) == null) {
+                            fragmentToDisplay = GitBookFragment.instantiate(MainActivity.this, className);
+                            fragmentHashMap.put(className, fragmentToDisplay);
+                        }
                         break;
                 }
-                menuItem.setChecked(true);//点击了把它设为选中状态
-                mDrawerLayout.closeDrawers();//关闭抽屉
+                fragmentToDisplay = fragmentHashMap.get(className);
+
+                mainHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.content, fragmentToDisplay).commitAllowingStateLoss();
+                    }
+                }, 300);//可以有效的改善体验——Fragment的替换更加流畅
+
                 return true;
             }
         });
 
-        avatorView = mNavigationView.findViewById(R.id.imageview_avatar);
-        avatorView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AnimatorSet set = new AnimatorSet();
-                set.playTogether(
-                        ObjectAnimator.ofFloat(avatorView, "rotation", 0, 1080),
-                        ObjectAnimator.ofFloat(avatorView, "scaleX", 1, 1.2f, 1),
-                        ObjectAnimator.ofFloat(avatorView, "scaleY", 1, 1.2f, 1),
-                        ObjectAnimator.ofFloat(avatorView, "alpha", 1, 0.25f, 1)
-                );
-                set.setDuration(3 * 1000).start();
-            }
-        });
+        configShimmer();
+    }
+
+    private void configShimmer() {
+        shimmer = new Shimmer();
+        shimmer.setRepeatCount(2)
+                .setDuration(1500);
     }
 
     private void setStatusBar() {
@@ -93,6 +141,41 @@ public class MainActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getColor(R.color.theme_red));
             window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imageview_avatar:
+                AnimatorSet avatarSet = new AnimatorSet();
+                avatarSet.playTogether(
+                        ObjectAnimator.ofFloat(v, "rotation", 0, 2160),
+                        ObjectAnimator.ofFloat(v, "scaleX", 1, 0.5f, 1.5f, 1),
+                        ObjectAnimator.ofFloat(v, "scaleY", 1, 0.5f, 1.5f, 1),
+                        ObjectAnimator.ofFloat(v, "alpha", 1, 0.25f, 1)
+                );
+                avatarSet.setDuration(3 * 1000).start();
+                break;
+            case R.id.textview_username:
+                AnimatorSet nameSet = new AnimatorSet();
+                nameSet.playTogether(
+                        ObjectAnimator.ofFloat(v, "translationX", 0, -180, 0),
+                        ObjectAnimator.ofFloat(v, "translationY", 0, -180, 0),
+                        ObjectAnimator.ofFloat(v, "scaleX", 1, 2.5f, 1),
+                        ObjectAnimator.ofFloat(v, "scaleY", 1, 2.5f, 1),
+                        ObjectAnimator.ofFloat(v, "alpha", 0f, 1, 1)
+                );
+                nameSet.setDuration(3 * 1000).start();
+                break;
+            case R.id.textview_label:
+                shimmer.start((ShimmerTextView) v);
+                break;
+            case R.id.layout_drawer_header:
+
+                break;
+            default:
+                break;
         }
     }
 }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_drawer_header"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@drawable/bg_drawer"
     android:gravity="bottom"
+    android:onClick="onClick"
     android:orientation="vertical"
     android:paddingBottom="10dp"
     android:paddingRight="20dp">
@@ -14,6 +16,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginLeft="20dp"
+        android:onClick="onClick"
         fresco:placeholderImage="@drawable/woniucircle"
         fresco:roundAsCircle="true" />
 
@@ -24,18 +27,20 @@
         android:layout_gravity="right"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/imageview_avatar"
+        android:onClick="onClick"
         android:text="@string/user_name"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
+    <com.romainpiel.shimmer.ShimmerTextView
         android:id="@+id/textview_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="right"
         android:layout_marginTop="5dp"
+        android:onClick="onClick"
         android:text="@string/user_label"
         android:textColor="@color/light_gray"
         android:textSize="12sp" />
