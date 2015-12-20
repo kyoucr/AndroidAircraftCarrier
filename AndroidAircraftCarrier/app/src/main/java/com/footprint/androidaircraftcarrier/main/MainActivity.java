@@ -5,10 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +14,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.footprint.androidaircraftcarrier.R;
-import com.footprint.androidaircraftcarrier.main.fragments.CompassFragment;
-import com.footprint.androidaircraftcarrier.main.fragments.GitBookFragment;
+import com.footprint.androidaircraftcarrier.app.ShellActivity;
+import com.footprint.androidaircraftcarrier.app.ShellFragment;
+import com.footprint.androidaircraftcarrier.main.fragments.ExploreFragment;
+import com.footprint.androidaircraftcarrier.main.fragments.HomeFragment;
 import com.footprint.androidaircraftcarrier.main.fragments.PlanningFragment;
-import com.footprint.androidaircraftcarrier.main.fragments.ShellFragment;
 import com.footprint.androidaircraftcarrier.main.fragments.SourceCodeFragment;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -28,11 +27,11 @@ import com.romainpiel.shimmer.ShimmerTextView;
 
 import java.util.WeakHashMap;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends ShellActivity implements View.OnClickListener {
     private DrawerLayout mDrawerLayout;
     private Shimmer shimmer;
 
-    private WeakHashMap<String, Fragment> fragmentHashMap = new WeakHashMap<>();
+    private WeakHashMap<String, ShellFragment> fragmentHashMap = new WeakHashMap<>();
     private Handler mainHandler = new Handler();
 
     @Override
@@ -57,27 +56,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.navigation);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             String className = "";
-            Fragment fragmentToDisplay = null;
+            ShellFragment fragmentToDisplay = null;
 
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+                if (fragmentToDisplay != null) {
+                    fragmentToDisplay.stopRefresh();
+                }
+
                 menuItem.setChecked(true);//点击了把它设为选中状态
                 mDrawerLayout.closeDrawers();//关闭抽屉
 
                 switch (menuItem.getItemId()) {
                     case R.id.item_home:
                         mToolbar.setTitle(R.string.shell_home);
-                        className = ShellFragment.class.getCanonicalName();
+                        className = HomeFragment.class.getCanonicalName();
                         if (fragmentHashMap.get(className) == null) {
-                            fragmentToDisplay = ShellFragment.instantiate(MainActivity.this, className);
+                            fragmentToDisplay = (ShellFragment) HomeFragment.instantiate(MainActivity.this, className);
                             fragmentHashMap.put(className, fragmentToDisplay);
                         }
                         break;
                     case R.id.item_explore:
                         mToolbar.setTitle(R.string.shell_explore);
-                        className = CompassFragment.class.getCanonicalName();
+                        className = ExploreFragment.class.getCanonicalName();
                         if (fragmentHashMap.get(className) == null) {
-                            fragmentToDisplay = CompassFragment.instantiate(MainActivity.this, className);
+                            fragmentToDisplay = (ShellFragment) ExploreFragment.instantiate(MainActivity.this, className);
                             fragmentHashMap.put(className, fragmentToDisplay);
                         }
                         break;
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mToolbar.setTitle(R.string.shell_code);
                         className = SourceCodeFragment.class.getCanonicalName();
                         if (fragmentHashMap.get(className) == null) {
-                            fragmentToDisplay = SourceCodeFragment.instantiate(MainActivity.this, className);
+                            fragmentToDisplay = (ShellFragment) SourceCodeFragment.instantiate(MainActivity.this, className);
                             fragmentHashMap.put(className, fragmentToDisplay);
                         }
                         break;
@@ -93,15 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mToolbar.setTitle(R.string.shell_plan);
                         className = PlanningFragment.class.getCanonicalName();
                         if (fragmentHashMap.get(className) == null) {
-                            fragmentToDisplay = PlanningFragment.instantiate(MainActivity.this, className);
-                            fragmentHashMap.put(className, fragmentToDisplay);
-                        }
-                        break;
-                    case R.id.item_book:
-                        mToolbar.setTitle(R.string.shell_plan);
-                        className = GitBookFragment.class.getCanonicalName();
-                        if (fragmentHashMap.get(className) == null) {
-                            fragmentToDisplay = GitBookFragment.instantiate(MainActivity.this, className);
+                            fragmentToDisplay = (ShellFragment) PlanningFragment.instantiate(MainActivity.this, className);
                             fragmentHashMap.put(className, fragmentToDisplay);
                         }
                         break;

@@ -19,10 +19,5 @@
             android:id="@+id/item_plan"
             android:icon="@drawable/ic_alarm_black_24dp"
             android:title="@string/shell_plan"></item>
-
-        <item
-            android:id="@+id/item_book"
-            android:icon="@drawable/ic_class_black_24dp"
-            android:title="@string/shell_gitbook"></item>
     </group>
 </menu>

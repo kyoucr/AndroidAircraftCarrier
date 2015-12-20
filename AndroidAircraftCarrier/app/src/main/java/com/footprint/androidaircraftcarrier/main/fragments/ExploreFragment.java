@@ -8,10 +8,10 @@ import com.footprint.androidaircraftcarrier.app.ShellFragment;
 /**
  * Created by liquanmin on 15/12/18.
  */
-public class PlanningFragment extends ShellFragment {
+public class ExploreFragment extends ShellFragment {
     @Override
     protected int getRootViewId() {
-        return R.layout.fragment_plan;
+        return R.layout.fragment_explore;
     }
 
     @Override
