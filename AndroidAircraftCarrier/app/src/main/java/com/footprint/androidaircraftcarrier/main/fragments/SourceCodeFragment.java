@@ -77,15 +77,8 @@ public class SourceCodeFragment extends ShellFragment implements SwipeRefreshLay
                 public void run() {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-            }, 3000);
+            }, 5000);
         }
-    }
-
-    @Override
-    public void stopRefresh() {
-        super.stopRefresh();
-        if (swipeRefreshLayout.isRefreshing())
-            swipeRefreshLayout.setRefreshing(false);
     }
 }
 

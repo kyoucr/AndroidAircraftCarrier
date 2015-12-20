@@ -33,11 +33,4 @@ public abstract class ShellFragment extends Fragment {
     protected View getRootView() {
         return rootView;
     }
-
-    /**
-     * 修复一个Bug
-     * https://code.google.com/p/android/issues/detail?id=78062
-     */
-    public void stopRefresh() {
-    }
 }

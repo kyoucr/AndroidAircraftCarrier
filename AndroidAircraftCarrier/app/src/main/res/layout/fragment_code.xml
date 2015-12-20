@@ -1,10 +1,15 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipelayout_code"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_code"
+    <!-- 注意，由于[Bug](https://code.google.com/p/android/issues/detail?id=78062)的存在，不要把SwipeRefreshLayout作为最外层Layout -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout_code"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>

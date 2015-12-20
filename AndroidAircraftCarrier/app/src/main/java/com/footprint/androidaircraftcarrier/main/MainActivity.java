@@ -60,10 +60,6 @@ public class MainActivity extends ShellActivity implements View.OnClickListener 
 
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                if (fragmentToDisplay != null) {
-                    fragmentToDisplay.stopRefresh();
-                }
-
                 menuItem.setChecked(true);//点击了把它设为选中状态
                 mDrawerLayout.closeDrawers();//关闭抽屉
 
