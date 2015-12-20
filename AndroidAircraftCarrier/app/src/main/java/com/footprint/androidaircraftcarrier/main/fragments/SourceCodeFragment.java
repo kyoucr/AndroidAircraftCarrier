@@ -59,6 +59,13 @@ public class SourceCodeFragment extends ShellFragment implements SwipeRefreshLay
         openLib.des = getString(R.string.des_fresco);
 
         openLibs.add(openLib);
+        openLibs.add(openLib);
+        openLibs.add(openLib);
+        openLibs.add(openLib);
+        openLibs.add(openLib);
+        openLibs.add(openLib);
+        openLibs.add(openLib);
+        openLibs.add(openLib);
         return openLibs;
     }
 
